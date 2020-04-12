@@ -6,6 +6,20 @@ from django.db import models
 # admin page 에서 본것들이 많아... AbstractUsera에...
 class User(AbstractUser):
 
-    bio = models.TextField(default="")
+    """ User Model Definition """
+
+    GENDER_MALE = "male"
+    GENDER_FEMALE = "female"
+    GENDER_OTHER = "other"
+
+    GENDER_CHOICES = (
+        (GENDER_MALE, "Male"),
+        (GENDER_FEMALE, "Female"),
+        (GENDER_OTHER, "Other"),
+    )
+    # blank =True 로 주어야지... 유저 만들 때 안적어줘도 된다...실제로 회원가입시에... 기입이 필요하지 않아....
+    avatar = models.ImageField(null=True, blank=True)
+    gender = models.CharField(choices=GENDER_CHOICES, default=GENDER_MALE, max_length=10, null=True, blank=True)
+    bio = models.TextField(default="", blank=True)
 
 
