@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ["django-countries"]
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -42,9 +42,9 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
+    "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
-    "core.apps.CoreConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS

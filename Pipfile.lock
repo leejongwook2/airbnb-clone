@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "aa67f8e66d5e3c9585568860fbba5b4e9ffc410c8de69862d206ba1aa1a7226a"
+            "sha256": "108e190cbe82fc64ccdd009ca02d5131231416c517c2fe60910919b47196b2d0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -38,6 +38,14 @@
             ],
             "index": "pypi",
             "version": "==2.0.1"
+        },
+        "django-countries": {
+            "hashes": [
+                "sha256:2e852c9693818d64d28758a720a0cb8277673ac495af8b855c4dc64940703bd2",
+                "sha256:e2ae9b76f9a0b5f3f365b5b81fe4972df0a5878c930139586f43f7d6d50a9594"
+            ],
+            "index": "pypi",
+            "version": "==6.1.2"
         },
         "django-excel-base": {
             "hashes": [
