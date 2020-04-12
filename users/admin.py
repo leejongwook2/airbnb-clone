@@ -6,4 +6,8 @@ class CustomUserAdmin(admin.ModelAdmin):
 
     """ CustomUser Admin Definition """
 
-    pass
+    list_display = (
+        "username", "gender", "email", "language", "currency", "superhost"
+    )
+
+    list_filter = ('superhost','language',)
