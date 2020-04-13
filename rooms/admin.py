@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe
 from . import models
 
 @admin.register(models.RoomType, models.Amenity, models.Facility, models.HouseRule)
@@ -92,4 +93,9 @@ class PhotoAdmin(admin.ModelAdmin):
 
     """ Photo Admin Definition """
 
-    pass
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        # obj.file 프린트 해보면 ... url 이라는 변수가 있구나.. 있어!!
+        return mark_safe(f"<img width='80px' src='{obj.file.url}'/>")
+    get_thumbnail.short_description = "Thumbnail"
