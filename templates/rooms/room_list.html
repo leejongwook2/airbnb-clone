@@ -4,19 +4,19 @@
 
 {% block content %}
 
-    {% for room in page %}
+    {% for room in rooms %}
         <h1>{{room.name}} / ${{room.price}}</h1>
     {% endfor %}
 
     <h5>
-    {% if page.has_previous %}
-        <a href="?page={{page.number|add:-1}}">Previous</a>
+    {% if page_obj.has_previous %}
+        <a href="?page={{page_obj.number|add:-1}}">Previous</a>
     {% endif %}
 
-        page : {{page.number}} / {{page.paginator.num_pages}}
+        page : {{page_obj.number}} / {{page_obj.paginator.num_pages}}
 
-    {% if page.has_next %}
-        <a href="?page={{page.number|add:1}}">Next</a>
+    {% if page_obj.has_next %}
+        <a href="?page={{page_obj.number|add:1}}">Next</a>
     {% endif %}
     </h5>
 
