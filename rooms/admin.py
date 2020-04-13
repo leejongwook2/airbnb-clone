@@ -28,7 +28,7 @@ class RoomAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Basic Info", {
             "fields": (
-                "name", "description", "country", "address", "price"
+                "name", "description", "country", "address", "city", "price"
             ),
         }),
         ("Times", {
@@ -86,6 +86,10 @@ class RoomAdmin(admin.ModelAdmin):
 
     # many tomany 만 가능한거야 이거는...
     filter_horizontal = ("amenities", "facilities", "house_rules")
+
+    def save_model(self, request, obj, form, change):
+        print(obj, change)
+        super().save_model(request, obj, form, change)
 
     # self 는 class 고 self 는 현재 row를 가르킴
     def count_amenities(self, obj):
