@@ -21,4 +21,19 @@ class Review(core_models.TimeStampedModel):
         # return self.room.host.email
         return f"{self.review} -------- {self.room}"
 
+    #  전체에서 사요되니깐... admin 에 함수를 만들지 않았다.
+    #  admin 만을 위한 함수를 생성할 것인지.. 공통적으로 포함된 함수를 만들것인지... 고민해봐요
+    def rating_average(self):
+        avg = (
+            self.accuracy +
+            self.communication +
+            self.cleanliness +
+            self.location +
+            self.check_in +
+            self.value
+        ) /6
+        return round(avg, 2)
+    rating_average.short_description = "AVG."
+
+
 

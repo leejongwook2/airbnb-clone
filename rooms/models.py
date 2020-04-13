@@ -81,3 +81,18 @@ class Room(core_models.TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    """
+        가능한 이유 : review 클래스에 room 필드 있을거야
+        room 필드에는 related_name = "reviews" 라고 되어있을거고
+        그럼 room.reviews.all() 이런 식으로 접근이 가능하겠지 ?
+        여기서 self는 class 즉 Room 을 의미하니깐 self.reviews 는 가능해 !!
+        여기까지 이해하면 됐다고 봄
+    """
+
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.rating_average()
+        return all_ratings
