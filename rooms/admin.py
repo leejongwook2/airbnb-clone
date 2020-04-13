@@ -6,7 +6,12 @@ class ItemAdmin(admin.ModelAdmin):
 
     """ ItemAdmin Definition """
 
-    pass
+    list_display=("name","used_by",)
+
+    # 이렇게 할 수 있는 이유는 roomType, amenity, facility, houserule 모두 rooms 라고 걸어놔서 가능한거야...
+    #  그런데 문제는 !! 어떻게 접근을 할수 있었는가를 아는것이 핵심이지 .. 있다가 공부해야함 .이 부분
+    def used_by(self, obj):
+        return obj.rooms.count()
 
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
@@ -59,6 +64,7 @@ class RoomAdmin(admin.ModelAdmin):
         "check_out",
         "instant_book",
         "count_amenities",
+        "count_photos",
     )
 
     # ordering = ("name", "price", "bedrooms")
@@ -73,7 +79,11 @@ class RoomAdmin(admin.ModelAdmin):
     # self 는 class 고 self 는 현재 row를 가르킴
     def count_amenities(self, obj):
         print(obj.amenities.all())
+        return obj.amenities.count()
     count_amenities.short_description = "amenities count"
+
+    def count_photos(self, obj):
+        return obj.photos.count()
 
 
 @admin.register(models.Photo)
