@@ -10,6 +10,8 @@ django = "*"
 django-admin = "*"
 pillow = "*"
 django-countries = "*"
+requests = "*"
+django-seed = "*"
 
 [requires]
 python_version = "3.8"
