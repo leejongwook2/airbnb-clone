@@ -35,7 +35,7 @@ class User(AbstractUser):
     )
 
     # blank =True 로 주어야지... 유저 만들 때 안적어줘도 된다...실제로 회원가입시에... 기입이 필요하지 않아....
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(upload_to="avatars", blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, default=GENDER_MALE, max_length=10, blank=True)
     bio = models.TextField(default="", blank=True)
     birthdate = models.DateField(blank=True, null=True)
