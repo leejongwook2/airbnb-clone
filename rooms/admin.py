@@ -14,10 +14,16 @@ class ItemAdmin(admin.ModelAdmin):
     def used_by(self, obj):
         return obj.rooms.count()
 
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
+
+    inlines = (PhotoInline,)
 
     fieldsets = (
         ("Basic Info", {
@@ -72,6 +78,9 @@ class RoomAdmin(admin.ModelAdmin):
     # ordering = ("name", "price", "bedrooms")
 
     list_filter = ("instant_book", "host__superhost", "city", "country", "room_type", "amenities", "facilities", "house_rules")
+
+    # host 를 검색 할 수 있게 해준다. 유저가 많을 떄 검색 할 수 있어서 좋다.
+    raw_id_fields = ("host",)
 
     search_fields = ["city", "^host__username"]
 
