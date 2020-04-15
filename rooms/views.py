@@ -3,6 +3,7 @@ from datetime import datetime
 from django.views.generic import ListView
 from django.core.paginator import EmptyPage, Paginator
 from . import models
+from django.urls import reverse
 
 class HomeView(ListView):
 
@@ -17,8 +18,11 @@ class HomeView(ListView):
     # 위의 model 데이터 외에 추가적으로 데이터를 더 보내고 싶다면 ... get_context_data 를 사용한다.
 
 def room_detail(request, pk):
-    print(pk)
-    return render(request, "rooms/detail.html")
+    try:
+        room = models.Room.objects.get(pk=pk)
+        return render(request, "rooms/detail.html", context={"room" : room})
+    except models.Room.DoesNotExist:
+        return redirect(reverse("core:home"))
 
     """
         def get_context_data(self, **kwargs):

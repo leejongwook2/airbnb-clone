@@ -3,5 +3,37 @@
 {% block page_title %}Home{% endblock page_title %}
 
 {% block content %}
+<div>
+    <h1>{{room.name}}</h1>
+    <h2>{{room.description}}</h2>
+</div>
+
+<div>
+    <h2>By: {{room.host.username}}
+    {% if  room.host.superhost%}
+        (superhost)
+    {% endif %}</h2>
+    <h3>Amenities</h3>
+    {% for a in room.amenities.all %}
+        <ul>
+            <li>{{a}}</li>
+        </ul>
+    {% endfor %}
+
+    <h3>Facilities</h3>
+    {% for f in room.facilities.all %}
+        <ul>
+            <li>{{f}}</li>
+        </ul>
+    {% endfor %}
+
+    <h3>Houst Rules</h3>
+    {% for h in room.house_rules.all %}
+        <ul>
+            <li>{{h}}</li>
+        </ul>
+    {% endfor %}
+
+</div>
 {% endblock content %}
 
