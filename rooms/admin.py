@@ -12,6 +12,10 @@ class ItemAdmin(admin.ModelAdmin):
     # 이렇게 할 수 있는 이유는 roomType, amenity, facility, houserule 모두 rooms 라고 걸어놔서 가능한거야...
     #  그런데 문제는 !! 어떻게 접근을 할수 있었는가를 아는것이 핵심이지 .. 있다가 공부해야함 .이 부분
     def used_by(self, obj):
+        # 여기서 주체는 models.RoomType, models.Amenity, models.Facility, models.HouseRule
+        # 이 친구들이야... ㅇㅇㅇ 이친구들이구....
+        print(dir(self))
+        # print(obj)
         return obj.rooms.count()
 
 class PhotoInline(admin.TabularInline):
@@ -110,5 +114,6 @@ class PhotoAdmin(admin.ModelAdmin):
 
     def get_thumbnail(self, obj):
         # obj.file 프린트 해보면 ... url 이라는 변수가 있구나.. 있어!!
+        # Photo 클래스에 file 이라는 변수가 있으니깐... ㅇㅇ
         return mark_safe(f"<img width='80px' src='{obj.file.url}'/>")
     get_thumbnail.short_description = "Thumbnail"
