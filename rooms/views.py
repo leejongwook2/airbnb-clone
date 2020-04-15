@@ -44,3 +44,7 @@ class RoomDetail(DetailView):
     model = models.Room
     # pk_url_kwarg = "potato" pk 이름을 변경 할 수 있다.. ㅇㅇ
 
+def search(request):
+    city = request.GET.get("city")
+    city = str.capitalize(city)
+    return render(request, "rooms/search.html", context={"city": city})
