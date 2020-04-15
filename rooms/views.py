@@ -1,11 +1,7 @@
-from django.shortcuts import redirect, render
-from django_countries import countries
-from django.http import Http404
-from datetime import datetime
-from django.views.generic import ListView, DetailView
-from django.core.paginator import EmptyPage, Paginator
+from django.views.generic import ListView, DetailView, View
+from django.shortcuts import render
 from . import models, forms
-from django.urls import reverse
+
 
 class HomeView(ListView):
 
@@ -13,29 +9,9 @@ class HomeView(ListView):
 
     model = models.Room
     paginate_by = 10
+    paginate_orphans = 5
     ordering = "created"
     context_object_name = "rooms"
-    # page_kwarg : page keyword argument
-    #  view 를 list 하고 form 을 제출하고... 그러면 class based로는 힘들어...
-    # 위의 model 데이터 외에 추가적으로 데이터를 더 보내고 싶다면 ... get_context_data 를 사용한다.
-
-    """
-    def room_detail(request, pk):
-    try:
-        room = models.Room.objects.get(pk=pk)
-        return render(request, "rooms/detail.html", context={"room" : room})
-    except models.Room.DoesNotExist:
-        # return redirect(reverse("core:home"))
-        raise Http404() """
-
-
-    """
-        def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        now = datetime.now()
-        context["now"] = now
-        return context
-    """
 
 
 class RoomDetail(DetailView):
@@ -43,14 +19,76 @@ class RoomDetail(DetailView):
     """ RoomDetail Definition """
 
     model = models.Room
-    # pk_url_kwarg = "potato" pk 이름을 변경 할 수 있다.. ㅇㅇ
 
-def search(request):
 
-    form = forms.SearchForm()
+class SearchView(View):
 
-    return render(request, "rooms/search.html",
-    context={
-        "form" : forms.SearchForm
-    }
-)
+    """ SearchView Definition """
+
+    def get(self, request):
+
+        country = request.GET.get("country")
+
+        if country:
+
+            form = forms.SearchForm(request.GET)
+
+            if form.is_valid():
+
+                city = form.cleaned_data.get("city")
+                country = form.cleaned_data.get("country")
+                room_type = form.cleaned_data.get("room_type")
+                price = form.cleaned_data.get("price")
+                guests = form.cleaned_data.get("guests")
+                bedrooms = form.cleaned_data.get("bedrooms")
+                beds = form.cleaned_data.get("beds")
+                baths = form.cleaned_data.get("baths")
+                instant_book = form.cleaned_data.get("instant_book")
+                superhost = form.cleaned_data.get("superhost")
+                amenities = form.cleaned_data.get("amenities")
+                facilities = form.cleaned_data.get("facilities")
+
+                filter_args = {}
+
+                if city != "Anywhere":
+                    filter_args["city__startswith"] = city
+
+                filter_args["country"] = country
+
+                if room_type is not None:
+                    filter_args["room_type"] = room_type
+
+                if price is not None:
+                    filter_args["price__lte"] = price
+
+                if guests is not None:
+                    filter_args["guests__gte"] = guests
+
+                if bedrooms is not None:
+                    filter_args["bedrooms__gte"] = bedrooms
+
+                if beds is not None:
+                    filter_args["beds__gte"] = beds
+
+                if baths is not None:
+                    filter_args["baths__gte"] = baths
+
+                if instant_book is True:
+                    filter_args["instant_book"] = True
+
+                if superhost is True:
+                    filter_args["host__superhost"] = True
+
+                for amenity in amenities:
+                    filter_args["amenities"] = amenity
+
+                for facility in facilities:
+                    filter_args["facilities"] = facility
+
+                rooms = models.Room.objects.filter(**filter_args)
+
+        else:
+
+            form = forms.SearchForm()
+
+        return render(request, "rooms/search.html", {"form": form, "rooms": rooms})
