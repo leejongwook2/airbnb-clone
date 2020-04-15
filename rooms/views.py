@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.http import Http404
 from datetime import datetime
 from django.views.generic import ListView
 from django.core.paginator import EmptyPage, Paginator
@@ -22,7 +23,9 @@ def room_detail(request, pk):
         room = models.Room.objects.get(pk=pk)
         return render(request, "rooms/detail.html", context={"room" : room})
     except models.Room.DoesNotExist:
-        return redirect(reverse("core:home"))
+        # return redirect(reverse("core:home"))
+        raise Http404()
+
 
     """
         def get_context_data(self, **kwargs):
