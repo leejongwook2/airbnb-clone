@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django_countries import countries
 from django.http import Http404
 from datetime import datetime
 from django.views.generic import ListView, DetailView
@@ -45,6 +46,7 @@ class RoomDetail(DetailView):
     # pk_url_kwarg = "potato" pk 이름을 변경 할 수 있다.. ㅇㅇ
 
 def search(request):
-    city = request.GET.get("city")
+    city = request.GET.get("city", "AnyWhere")
     city = str.capitalize(city)
-    return render(request, "rooms/search.html", context={"city": city})
+    room_types = models.RoomType.objects.all()
+    return render(request, "rooms/search.html", context={"city": city, "countries": countries, "room_types": room_types})
