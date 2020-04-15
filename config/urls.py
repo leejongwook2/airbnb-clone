@@ -23,6 +23,7 @@ from rooms import views as room_views
 # 요청하는것 , 요청에 반응하는 것
 urlpatterns = [
     path("", include("core.urls", namespace="core")),
+    path("rooms/", include("rooms.urls", namespace="rooms")),
     path('admin/', admin.site.urls),
 ]
 
