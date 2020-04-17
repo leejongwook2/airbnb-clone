@@ -11,7 +11,7 @@ class LoginForm(forms.Form):
     # 이 함수에서 값이 있나 체크를 하는거구나 .. ㅇㅇ
     def clean(self):
         email = self.cleaned_data.get("email")
-        password = self.cleaned_data.get("passwrd")
+        password = self.cleaned_data.get("password")
         try:
             user = models.User.objects.get(email=email)
             if user.check_password(password):
