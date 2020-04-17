@@ -45,7 +45,8 @@ class RoomAdmin(admin.ModelAdmin):
                 "guests",
                 "beds",
                 "bedrooms",
-                "baths"
+                "baths",
+                "room_type"
             ),
         }),
         ("More About the Sapce", {
