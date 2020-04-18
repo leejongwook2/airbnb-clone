@@ -29,9 +29,6 @@ class SignUpForm(forms.ModelForm):
         model = models.User
         fields = ("first_name", "last_name", "email")
 
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
 

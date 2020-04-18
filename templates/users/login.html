@@ -6,7 +6,7 @@
 {% endblock searc-bar %}
 
 {% block content %}
-
+    {% include "partials/social_login.html" %}
     <form action="{% url 'users:login' %}" method="post">
         {% csrf_token %}
         {{form.as_p}}
