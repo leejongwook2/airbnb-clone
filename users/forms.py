@@ -24,9 +24,10 @@ class LoginForm(forms.Form):
 
 class SignUpForm(forms.ModelForm):
 
+    # 이 Model Form 이라는게 clena_ 해준다고 함...
     class Meta:
-        mode = models.User
-        fields = ("fiest_name", "last_name", "email")
+        model = models.User
+        fields = ("first_name", "last_name", "email")
 
     first_name = forms.CharField(max_length=80)
     last_name = forms.CharField(max_length=80)
@@ -46,7 +47,9 @@ class SignUpForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         user = super().save(commit=False) # Call the real save() method
         email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
         user.username = email
+        # 이거 않하면 패스워드 세팅이 안되버리네 .... ㅇㅇ
         user.set_password(password)
         user.save()
 
