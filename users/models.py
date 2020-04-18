@@ -26,6 +26,16 @@ class User(AbstractUser):
         (LANGUAGE_KROEAN, "Korean"),
     )
 
+    LOGIN_EMAIL = "email"
+    LOGIN_GH = "github"
+    LOGIN_KAKAO ="kakao"
+
+    LOGIN_CHOICES = (
+        (LOGIN_EMAIL, "Email"),
+        (LOGIN_GH, "Github"),
+        (LOGIN_KAKAO, "Kakao"),
+    )
+
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
 
@@ -42,6 +52,9 @@ class User(AbstractUser):
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True, default=LANGUAGE_KROEAN)
     currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW)
     superhost = models.BooleanField(default=False)
+    email_verified = models.BooleanField(default=False)
+    email_secret = models.CharField(max_length=20, default="", blank=True)
+    login_method = models.CharField(choices=LOGIN_CHOICES, max_length=50, default=LOGIN_EMAIL)
 
     def __str__(self):
         return self.username

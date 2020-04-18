@@ -49,9 +49,18 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
 def github_login(reuqest):
-    client_id = os.environ.get("GITHUB_ID")
+    client_id = os.environ.get("GITHUB_USERID")
     redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
     return redirect(f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user")
 
-def github_callback(reuqest):
-    pass
+def github_callback(request):
+    client_id = os.environ.get("GITHUB_USERID")
+    client_secret = os.environ.get("GITHUB_SECRET")
+    code = request.GET.get("code", None)
+    if code is not None:
+        request = request.post(
+            f"POST https://github.com/login/oauth/access_token?client_id={client_id}&code={code}",
+                headers = {"Accept":"application/json"},
+        )
+    return redirect(reverse("core:home"))
+
