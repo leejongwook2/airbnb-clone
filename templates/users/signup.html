@@ -10,7 +10,7 @@
     <form action="{% url 'users:signup' %}" method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <button>Signup</button>
+        <button>Sign up</button>
     </form>
 
 {% endblock content %}

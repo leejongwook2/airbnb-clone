@@ -38,7 +38,7 @@ class SignUpForm(forms.Form):
         except models.User.DoesNotExist:
             return email
 
-    def clena_password1(self):
+    def clean_password1(self):
         password = self.cleaned_data.get("password")
         password1 = self.cleaned_data.get("password1")
 
@@ -46,4 +46,19 @@ class SignUpForm(forms.Form):
             raise forms.ValidationError("Pasword confirmations does not match")
         else :
             return password
+
+
+    def save(self):
+
+        first_name = self.cleaned_data.get("first_name")
+        last_name = self.cleaned_data.get("last_name")
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        password1 = self.cleaned_data.get("password1")
+
+        user = models.User.objects.create_user(email, email=email, password=password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
 
