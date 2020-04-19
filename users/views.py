@@ -166,11 +166,6 @@ def kakao_callback(request):
                     user.avatar.save(
                         f"{nickname}-avatar", ContentFile(photo_reuqest.content)
                     )
-                    print(ContentFile(photo_reuqest.content))
-                    print(ContentFile(photo_reuqest.content))
-                    print(ContentFile(photo_reuqest.content))
-                    print(ContentFile(photo_reuqest.content))
-                    print(ContentFile(photo_reuqest.content))
             login(request, user)
             return redirect(reverse("core:home"))
         else :
