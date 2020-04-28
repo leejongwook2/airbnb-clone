@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.shortcuts import reverse
 
 # 여기에 대부분은... models.Model 을 넣는다...
 # mdoels 는 이건데??? 위에 상속된 models 저거랑 동치함...
@@ -59,4 +60,5 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-
+    def get_absolute_url(self):
+        return reverse("users:profile", kwargs={"pk": self.pk})

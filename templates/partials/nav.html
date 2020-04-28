@@ -1,10 +1,9 @@
-    <header>
-        <ul class="flex items-center text-sm font-medium h-full">
-            {% if user.is_authenticated %}
-                <li class="nav_link"><a href="{% url "users:logout" %}">Log out</a></li>
-            {% else %}
-                <li class="nav_link"><a href="{% url "users:login" %}">Log in</a></li>
-                <li class="nav_link"><a href="{% url "users:signup" %}">Sign up</a></li>
-            {% endif %}
-        </ul>
-    </header>
+<ul class="flex items-center text-sm font-medium h-full">
+    {% if user.is_authenticated %}
+        <li class="hover:border-gray-700 ml-6 border-b-2 border-gray-400 h-full flex items-center"><a class="py-10 px-5" href="{{user.get_absolute_url}}">Profile</a></li>
+        <li class="hover:border-gray-700 ml-6 border-b-2 border-gray-400 h-full flex items-center"><a class="py-10 px-5" href="{% url "users:logout" %}">Log out</a></li>
+    {% else %}
+        <li class="hover:border-gray-700 ml-6 border-b-2 border-gray-400 h-full flex items-center"><a class="py-10 px-5" href="{% url "users:login" %}">Log in</a></li>
+        <li class="hover:border-gray-700 ml-6 border-b-2 border-gray-400 h-full flex items-center"><a class="py-10 px-5" href="{% url "users:signup" %}">Sign up</a></li>
+    {% endif %}
+</ul>
